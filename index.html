@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="btnMinus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="mQuantity" type="text" class="form-control text-center" value="1">
+                           <button id="btnPlus" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$<span id="mPrice">1219</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="btnMinusC" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="cQuantity" type="text" class="form-control text-center" value="1">
+                           <button id="btnPlusC" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$<span id="cPrice">59</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$<span id="subTotal">1,278</span></h5>
+                        <h5>$<span id="tax">0</span></h5>
+                        <h5>$<span id="total">1,278</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <script>
+      //Plu button handler
+      function getInputValue(id){
+            return parseInt(document.getElementById(id).value); 
+        }
+       
+        function increasePricevalue(quty,price,amount){
+         let count =getInputValue(quty);
+         count=count+1;
+         document.getElementById(quty).value=count;
+         let vamount = parseFloat(amount);
+         let totalPrice=vamount*count;       
+         document.getElementById(price).innerText=totalPrice;
+        }
+        function decreasePricevalue(quty,price,amount){
+         let count =getInputValue(quty);
+         if(count>0){
+         count=count-1;
+         document.getElementById(quty).value=count;
+         let vamount = parseFloat(amount);
+         let totalPrice=vamount*count; 
+         document.getElementById(price).innerText=totalPrice;
+         }
+        }
+        function updateSpanText(){
+           let item1Price=parseFloat(document.getElementById("mPrice").innerText);
+           let item2Price=parseFloat(document.getElementById("cPrice").innerText);
+           let subTotalPrice=item1Price+item2Price;
+           document.getElementById("subTotal").innerText=subTotalPrice;
+           let taxAmount=0;
+           let totalAmount=subTotalPrice-taxAmount;
+           document.getElementById("total").innerText=totalAmount;
+
+        }
+      document.getElementById("btnPlus").addEventListener('click',function(){
+         increasePricevalue("mQuantity","mPrice",1219);
+         updateSpanText();
+      })
+      document.getElementById("btnMinus").addEventListener('click',function(){
+         decreasePricevalue("mQuantity","mPrice",1219);
+         updateSpanText();
+      })
+      document.getElementById("btnPlusC").addEventListener('click',function(){
+         increasePricevalue("cQuantity","cPrice",59);
+         updateSpanText();
+      })
+      document.getElementById("btnMinusC").addEventListener('click',function(){
+         decreasePricevalue("cQuantity","cPrice",59);
+         updateSpanText();
+      })
+   </script>
+</body>
+
+</html>
